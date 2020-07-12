@@ -184,6 +184,21 @@
 </script>
 
 <style>
+  #work_kudos {
+    background: #fff;
+    padding: 5px 6px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: #999;
+    line-height: 13px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    border: 1px solid #fad4d3;
+    margin: 5px 0;
+    height: fit-content;
+  }
+
   #kudos {
     display: inline;
     width: 13px;

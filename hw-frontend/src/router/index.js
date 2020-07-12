@@ -6,6 +6,7 @@ import Work from '@/components/Work'
 import Commend from '@/components/Commend'
 import Message from '@/components/Message'
 import Notes from '@/components/Notes'
+import Add from '@/components/admin/Add'
 
 
 Vue.use(VueRouter)
@@ -54,6 +55,13 @@ const router = new VueRouter({
             component: Notes,
             meta: {
             title: 'notes'
+            }
+        },
+        {
+            path: '/housekeeper',
+            component: Add,
+            meta: {
+            title: 'housekeeper'
             }
         }
     ]

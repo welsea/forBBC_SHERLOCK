@@ -8,12 +8,12 @@ const notesController = {
     },
     create(req, res) {
         const requestBody = req.body;
-        const newNotes = new notesModel(requestBody);
+        const newNote = new notesModel(requestBody);
 
-        newNotes.save((err, saved) => {
+        newNote.save((err, saved) => {
             notesModel
                 .findOne({
-                    _id: newNotes._id
+                    _id: newNote._id
                 })
                 .exec((err, notes) => res.json(notes))
         })

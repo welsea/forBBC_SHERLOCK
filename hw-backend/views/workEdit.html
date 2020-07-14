@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户编辑页面</title>
+</head>
+<body>
+    <form action="/work/update" method="post">
+        <input type="hidden" name="id" value="<%= work._id %>">
+        <input type="text" name="name" value="<%= work.name %>">
+        <input type="text" name="artist" value="<%= work.artist %>">
+        <input type="text" name="url" value="<%= work.url %>">
+        <button type="submit">update</button>
+    </form>
+</body>
+</html>

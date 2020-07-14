@@ -1,0 +1,15 @@
+<table>
+    <tr>
+        <td>图片</td>
+        <td>name</td>
+        <td>artist</td>
+
+    </tr>
+    <% for(var i in work){ %>
+        <tr>
+            <td><%= work[i].url %></td>
+            <td><%= work[i].name %></td>
+            <td><%= work[i].artist %></td>
+        </tr>
+    <% } %>
+</table>

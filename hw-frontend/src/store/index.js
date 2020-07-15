@@ -47,6 +47,17 @@ export default new Vuex.Store({
         state.notes.push(img);
       },
 
+      //fic
+      ALL_FICS(state,payload){
+        const { fics }=payload;
+        state.fics=fics;
+      },
+
+      //video
+      ALL_VIDEOS(state,payload){
+        const { videos }=payload;
+        state.videos=videos;
+      },
   },
   getters:{
     allNotes(state){
@@ -54,6 +65,12 @@ export default new Vuex.Store({
     },
     allImgs(state){
       return state.imgs;
+    },
+    allFics(state){
+      return state.fics;
+    },
+    allVideos(state){
+      return state.videos;
     }
   },
   actions:{
@@ -88,6 +105,38 @@ export default new Vuex.Store({
         console.log('response',response);
         commit('ALL_IMGS',{
           imgs:response.data,
+        })
+      })  
+    },
+    allFics({ commit }){
+      axios.get(`${API_BASE}/fics`).then(response=>{
+        console.log('response',response);
+        commit('ALL_FICS',{
+          fics:response.data,
+        })
+      })
+    },
+    allFicsSort({commit},payload){
+      axios.get(`${API_BASE}/fics/sort`).then(response=>{
+        console.log('response',response);
+        commit('ALL_FICS',{
+          fics:response.data,
+        })
+      })  
+    },
+    allVideos({ commit }){
+      axios.get(`${API_BASE}/videos`).then(response=>{
+        console.log('response',response);
+        commit('ALL_VIDEOS',{
+          videos:response.data,
+        })
+      })
+    },
+    allVideosSort({commit},payload){
+      axios.get(`${API_BASE}/videos/sort`).then(response=>{
+        console.log('response',response);
+        commit('ALL_VIDEOS',{
+          videos:response.data,
         })
       })  
     }

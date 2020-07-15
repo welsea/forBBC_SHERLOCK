@@ -23,16 +23,16 @@
             <div class="work_list">
                 <!--文章列表-->
                 <div v-if="select_work==1">
-                    <el-card id="work_item" v-for="item in 10" :key="item">
+                    <el-card id="work_item" v-for="item in fics" :key="item._id">
                         <div id="info">
-                            <div id="work_name">圣诞愿望清单{{item}}</div>
-                            <div id="work_author">苏塞克斯</div>
+                            <div id="work_name">{{item.name}}</div>
+                            <div id="work_author">{{item.author}}</div>
                             <div id="work_kudos">
                                 <i class="icon icon-font icon-aixin1 aixin_fill"></i>
-                                <div id="kudos_num">324</div>
+                                <div id="kudos_num">{{item.kudos}}</div>
                             </div>
                             <div class="work_abstract two_line">
-                                Sherlock is a British crime television series based on Sir Arthur Conan Doyle's Sherlock Holmes detective stories. Created by Steven Moffat and Mark Gatiss, it stars Benedict Cumberbatch as Sherlock Holmes and Martin Freeman as Doctor John Watson.
+                                {{item.content}}
                             </div>
                         </div>
                     </el-card>
@@ -65,33 +65,29 @@
                 </div>
                 <!--视频列表-->
                 <div v-else>
-                    <el-card id="work_item" v-for="item in 10" :key="item">
+                    <el-card id="work_item" v-for="item in video" :key="item.aid">
                         <el-row class="video_item">
                             <el-col :span="6">
                                 <div id="video_img">
-                                    <img :src="require('../assets/221b.jpg')" class="image">
+                                    <img :src="item.pic" class="image">
                                 </div>
                             </el-col>
                             <el-col :span="17">
                                 <div id="info">
-                                    <div id="work_name" class="single_line">圣诞愿望清单 {{item}}</div>
-                                    <div id="work_author">苏塞克斯</div>
+                                    <div id="work_name" class="single_line">{{item.title}}</div>
+                                    <div id="work_author">{{item.owner.name }}</div>
                                     <div id="work_kudos">
                                         <i class="icon icon-font icon-aixin1 aixin_fill"></i>
-                                        <div id="kudos_num">2323</div>
+                                        <div id="kudos_num">{{item.stat.favorite}}</div>
                                     </div>
                                     <div class="work_abstract two_line">
-                                        Sherlock is a British crime television series based on Sir Arthur Conan Doyle's Sherlock Holmes detective stories.
+                                        {{item.desc}}
                                     </div>
                                 </div>
                             </el-col>
                         </el-row>
                     </el-card>
                 </div>
-            </div>
-
-
-
             </div>
         </div>
     </div>
@@ -108,6 +104,7 @@
 //         :total="length"
 //         @current-change="pageChange">
 //     </el-pagination>
+    import axios from 'axios'
     export default {
         data() {
             return {
@@ -116,20 +113,22 @@
                 select_work: 1,
                 loading:false,
                 length:10,
+                video:[]
 
             }
         },
         methods: {
             radioChange(value) {
                 this.select_work = value;
-                console.log(value);
             },
             selectChange(val) {
                 console.log(val);
                 if(val==='kudos'){
                     this.$store.dispatch('allImgsSort');
+                    this.$store.dispatch('allFicsSort');
                 }else{
                     this.$store.dispatch('allImgs');
+                    this.$store.dispatch('allFics');
                 }
             },
             pageChange(val){
@@ -149,8 +148,12 @@
                     this.select_work=this.$route.query.select_work;
                     this.radio=this.select_work
                 }
-                
-
+            },
+            getVideoMsg(){
+                // axios
+                // .get('https://api.bilibili.com/x/web-interface/view?aid='+this.videos[0].aid)
+                // .then(response=>(this.video[i]=response.data))
+                console.log('get')
             }
         },
         created() {
@@ -158,6 +161,14 @@
             if (this.imgs.length === 0) {
                 this.$store.dispatch('allImgs');
                 this.length=this.imgs.length;
+            }
+            if (this.fics.length === 0) {
+                this.$store.dispatch('allFics');
+                this.length=this.fics.length;
+            }
+            if (this.videos.length === 0) {
+                this.$store.dispatch('allVideos');
+                this.length=this.videos.length;
             }
         },
         watch: {
@@ -170,11 +181,19 @@
             }
         },
         mounted() {
-            // this.select_work=this.@route.query.select_work;
+
+                
         },
         computed: {
-             imgs() {
+            imgs() {
                 return this.$store.getters.allImgs;
+            },
+            fics(){
+                return this.$store.getters.allFics;
+            },
+            videos(){
+                this.getVideoMsg();
+                return this.$store.getters.allVideos;
             }
         },
     }

@@ -7,10 +7,8 @@ const ficsController = {
             .exec((err, fics) => res.json(fics))
     },
     sortBy(req,res){
-        const sortby="-"+req.params.sort;
-
         ficsModel
-            .find({}).sort(sortby)
+            .find({}).sort({kudos:-1})
             .exec((err,fics)=>res.json(fics));
     },
     create(req, res) {

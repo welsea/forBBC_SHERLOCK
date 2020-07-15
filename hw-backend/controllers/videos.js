@@ -7,10 +7,8 @@ const videosController = {
             .exec((err, videos) => res.json(videos))
     },
     sortBy(req,res){
-        const sortby="-"+req.params.sort;
-
         videosModel
-            .find({}).sort(sortby)
+            .find({}).sort({kudos:-1})
             .exec((err,videos)=>res.json(videos));
     },
     create(req, res) {

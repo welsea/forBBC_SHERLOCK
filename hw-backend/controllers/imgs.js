@@ -7,10 +7,8 @@ const imgsController = {
             .exec((err, imgs) => res.json(imgs))
     },
     sortBy(req,res){
-        const sortby="-"+req.params.sort;
-
         imgsModel
-            .find({}).sort(sortby)
+            .find({}).sort({kudos:-1})
             .exec((err,imgs)=>res.json(imgs));
     },
     create(req, res) {

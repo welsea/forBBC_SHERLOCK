@@ -45,7 +45,7 @@ export default new Vuex.Store({
       ADD_IMG(state,payload){
         const { img }=payload;
         state.notes.push(img);
-      }
+      },
 
   },
   getters:{
@@ -83,5 +83,13 @@ export default new Vuex.Store({
         })
       })
     },
+    allImgsSort({commit},payload){
+      axios.get(`${API_BASE}/imgs/sort`).then(response=>{
+        console.log('response',response);
+        commit('ALL_IMGS',{
+          imgs:response.data,
+        })
+      })  
+    }
   }
 })

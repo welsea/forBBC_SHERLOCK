@@ -13,8 +13,8 @@
                 </el-col>
                 <el-col :span="4">
                     <el-select v-model="value"  @change="selectChange">
-                        <el-option v-for="item in selectItems" :key="item.value" :value="item.value"
-                            :label="item.label"></el-option>
+                        <el-option  value="time" label="最新上传"></el-option>
+                        <el-option  value="kudos" label="热度最高"></el-option>
                     </el-select>
                 </el-col>
             </el-row>
@@ -112,15 +112,6 @@
         data() {
             return {
                 radio: '1',
-                selectItems: [{
-                        value: "time",
-                        label: "最新上传"
-                    },
-                    {
-                        value: 'kudos',
-                        label: "热度最高"
-                    },
-                ],
                 value: 'time',
                 select_work: 1,
                 loading:false,
@@ -135,6 +126,11 @@
             },
             selectChange(val) {
                 console.log(val);
+                if(val==='kudos'){
+                    this.$store.dispatch('allImgsSort');
+                }else{
+                    this.$store.dispatch('allImgs');
+                }
             },
             pageChange(val){
                 console.log(val);

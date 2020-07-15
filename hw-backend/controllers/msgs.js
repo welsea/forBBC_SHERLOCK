@@ -7,10 +7,8 @@ const msgsController = {
             .exec((err, msgs) => res.json(msgs))
     },
     sortBy(req,res){
-        const sortby="-"+req.params.sort;
-
         msgsModel
-            .find({}).sort(sortby)
+            .find({}).sort({kudos:-1})
             .exec((err,msgs)=>res.json(msgs));
     },
     create(req, res) {

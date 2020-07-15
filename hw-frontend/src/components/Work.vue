@@ -28,7 +28,7 @@
                             <div id="work_name">圣诞愿望清单{{item}}</div>
                             <div id="work_author">苏塞克斯</div>
                             <div id="work_kudos">
-                                <img id="kudos" src="../assets/heart.png" alt="">
+                                <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                                 <div id="kudos_num">324</div>
                             </div>
                             <div class="work_abstract two_line">
@@ -40,20 +40,20 @@
                 <!--图片列表-->
                 <div v-else-if="select_work==2">
                     <el-row :gutter="24">
-                        <el-col :span="8" v-for="o in 12" :key="o">
+                        <el-col :span="8" v-for="img in imgs" :key="img._id">
                             <div style="marginBottom:30px">
                                 <el-card :body-style="{ padding: '0px' }">
-                                    <img src="../assets/221b.jpg" class="image">
+                                    <img :src="img.url" class="image">
                                     <div style="padding: 14px;">
-                                        <span>221b {{o}}</span>
+                                        <span>{{img.artist}}</span>
                                         <div id="work_kudos">
-                                            <img id="kudos" src="../assets/heart.png" alt="">
-                                            <div id="kudos_num">324</div>
+                                            <i class="icon icon-font icon-aixin1 aixin_fill"></i>
+                                            <div id="kudos_num">{{ img.kudos}}</div>
                                         </div>
                                         <div class="bottom clearfix">
                                             <div class="author_info">
                                                 <img src="../assets/logo.png" alt="">
-                                                <span>name</span>
+                                                <span>{{ img.name }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                     <div id="work_name" class="single_line">圣诞愿望清单 {{item}}</div>
                                     <div id="work_author">苏塞克斯</div>
                                     <div id="work_kudos">
-                                        <img id="kudos" src="../assets/heart.png" alt="">
+                                        <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                                         <div id="kudos_num">2323</div>
                                     </div>
                                     <div class="work_abstract two_line">
@@ -91,15 +91,7 @@
             </div>
 
 
-            <div class="page_count">
-                <el-pagination
-                    background
-                    :page-size='10' 
-                    :hide-on-single-page="true"
-                    layout="prev, pager, next" 
-                    :total="50"
-                    @current-change="pageChange">
-                </el-pagination>
+
             </div>
         </div>
     </div>
@@ -107,6 +99,15 @@
 </template>
 
 <script>
+// <div class="page_count">
+//     <el-pagination
+//         background
+//         :page-size='9' 
+//         :hide-on-single-page="true"
+//         layout="prev, pager, next" 
+//         :total="length"
+//         @current-change="pageChange">
+//     </el-pagination>
     export default {
         data() {
             return {
@@ -123,6 +124,7 @@
                 value: 'time',
                 select_work: 1,
                 loading:false,
+                length:10,
 
             }
         },
@@ -147,13 +149,20 @@
                 //         console.log(post)
                 //     }
                 // })
-                this.select_work=this.$route.query.select_work;
-                this.radio=this.select_work
+                if(this.$route.query.select_work!=null){
+                    this.select_work=this.$route.query.select_work;
+                    this.radio=this.select_work
+                }
+                
 
             }
         },
         created() {
-            this.fetchData()
+            this.fetchData();
+            if (this.imgs.length === 0) {
+                this.$store.dispatch('allImgs');
+                this.length=this.imgs.length;
+            }
         },
         watch: {
             select_work(sw) {
@@ -166,6 +175,11 @@
         },
         mounted() {
             // this.select_work=this.@route.query.select_work;
+        },
+        computed: {
+             imgs() {
+                return this.$store.getters.allImgs;
+            }
         },
     }
 </script>
@@ -203,6 +217,8 @@
     .image {
         width: 100%;
         display: block;
+        height: 250px;
+        object-fit: cover;
     }
 
     .clearfix:before,

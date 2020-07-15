@@ -11,7 +11,7 @@
               <div>author</div>
               <div class="commend_contact">24342@mail.com</div>
               <div id="work_kudos">
-                <img id="kudos" src="../assets/heart.png" alt="">
+                <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                 <div id="kudos_num">324</div>
               </div>
               <div class="work1_msg">总之就是推荐</div>
@@ -29,7 +29,7 @@
               <div class="commend_abstract" v-if="i<3">介绍啊啊啊啊</div>
             </div>
             <div id="work_kudos">
-              <img id="kudos" src="../assets/heart.png" alt="">
+              <i class="icon icon-font icon-aixin1 aixin_fill" ></i>
               <div id="kudos_num">324</div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <div class="pic_commend_title">作品名</div>
               <div class="pic_commend_artist">作者名 {{ item }}</div>
               <div id="work_kudos">
-                <img id="kudos" src="../assets/heart.png" alt="">
+                <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                 <div id="kudos_num">324</div>
               </div>
             </div>
@@ -75,7 +75,7 @@
               <div class="video_commend_title single_line">作品名{{ item }}</div>
               <div class="video_info_2">
                 <div id="work_kudos">
-                  <img id="kudos" src="../assets/heart.png" alt="">
+                  <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                   <div id="kudos_num">324</div>
                 </div>
                 <div class="video_commend_artist">
@@ -100,7 +100,7 @@
               <div class="msg_line1_2">
                 <div>名字</div>
                 <div id="work_kudos">
-                  <img id="kudos" src="../assets/heart.png" alt="">
+                  <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                   <div id="kudos_num">324</div>
                 </div>
               </div>

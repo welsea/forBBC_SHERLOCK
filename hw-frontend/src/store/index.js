@@ -9,10 +9,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: true,
   state: {
+    //版务
     note:{},
     notes:[],
+    //图
     img:{},
-    imgs:[]
+    imgs:[],
+    //文
+    fic:{},
+    fics:[],
+    //视频
+    video:{},
+    videos:[],
+    //留言
+    msg:{},
+    msgs:[],
+
   },
   mutations:{
       ADD_NOTE(state,payload){
@@ -23,12 +35,25 @@ export default new Vuex.Store({
         const { notes }=payload;
 
         state.notes=notes;
+      },
+
+      //图
+      ALL_IMGS(state,payload){
+        const { imgs }=payload;
+        state.imgs=imgs;
+      },
+      ADD_IMG(state,payload){
+        const { img }=payload;
+        state.notes.push(img);
       }
 
   },
   getters:{
     allNotes(state){
       return state.notes;
+    },
+    allImgs(state){
+      return state.imgs;
     }
   },
   actions:{
@@ -49,6 +74,14 @@ export default new Vuex.Store({
           note:response.data,
         })
       })
-    }
+    },
+    allImgs({ commit }){
+      axios.get(`${API_BASE}/imgs`).then(response=>{
+        console.log('response',response);
+        commit('ALL_IMGS',{
+          imgs:response.data,
+        })
+      })
+    },
   }
 })

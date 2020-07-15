@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import './plugins/element.js'
 import store from './store'
+import './assets/iconfont.css'
 
 // Vue.use(ElementUI);
 

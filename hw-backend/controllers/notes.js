@@ -3,8 +3,15 @@ var notesModel = require('../model/notes');
 /* GET notes listing. */
 const notesController = {
     all(req, res) {
-        notesModel.find({})
+        notesModel.find({}).sort({ _id:-1})
             .exec((err, notes) => res.json(notes))
+    },
+    sortBy(req,res){
+        const sortby="-"+req.params.sort;
+
+        notesModel
+            .find({}).sort(sortby)
+            .exec((err,notes)=>res.json(notes));
     },
     create(req, res) {
         const requestBody = req.body;

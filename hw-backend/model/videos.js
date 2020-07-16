@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 
 //schema
 var videosSchema= new mongoose.Schema({
-    aid:String,
-    BV:String
+    bv:String,
+    name:String,
+    owner:String,
+    desc:String,
+    face:String,
+    kudos:Number
 })
 
 var videosModel= mongoose.model('videos', videosSchema);

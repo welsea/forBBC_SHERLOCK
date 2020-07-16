@@ -11,6 +11,11 @@ const videosController = {
             .find({}).sort({kudos:-1})
             .exec((err,videos)=>res.json(videos));
     },
+    limitReturn(req,res){
+        videosModel
+            .find({}).sort({kudos:-1}).limit(3)
+            .exec((err,videos)=>res.json(videos));
+    },
     create(req, res) {
         const requestBody = req.body;
         const newVideo = new videosModel(requestBody);

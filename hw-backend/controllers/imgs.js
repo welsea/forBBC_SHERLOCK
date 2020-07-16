@@ -11,6 +11,11 @@ const imgsController = {
             .find({}).sort({kudos:-1})
             .exec((err,imgs)=>res.json(imgs));
     },
+    limitReturn(req,res){
+        imgsModel
+            .find({}).sort({kudos:-1}).limit(3)
+            .exec((err,imgs)=>res.json(imgs));
+    },
     create(req, res) {
         const requestBody = req.body;
         const newImg = new imgsModel(requestBody);

@@ -6,6 +6,11 @@ const notesController = {
         notesModel.find({}).sort({ _id:-1})
             .exec((err, notes) => res.json(notes))
     },
+    limitReturn(req,res){
+        notesModel
+            .find({}).limit(5)
+            .exec((err,notes)=>res.json(notes));
+    },
     create(req, res) {
         const requestBody = req.body;
         const newNote = new notesModel(requestBody);

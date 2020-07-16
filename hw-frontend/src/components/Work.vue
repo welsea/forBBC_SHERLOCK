@@ -43,7 +43,7 @@
                         <el-col :span="8" v-for="img in imgs" :key="img._id">
                             <div style="marginBottom:30px">
                                 <el-card :body-style="{ padding: '0px' }">
-                                    <img :src="img.url" class="image">
+                                    <img :src="img.url" class="img_image">
                                     <div style="padding: 14px;">
                                         <span>{{img.artist}}</span>
                                         <div id="work_kudos">
@@ -65,21 +65,25 @@
                 </div>
                 <!--视频列表-->
                 <div v-else>
-                    <el-card id="work_item" v-for="item in video" :key="item.aid">
+                <div style="font-size: 15px;margin: 15px;">* 视频分区不支持热度排序</div>
+                    <el-card id="work_item" v-for="item in videos" :key="item.BV">
                         <el-row class="video_item">
                             <el-col :span="6">
                                 <div id="video_img">
-                                    <img :src="item.pic" class="image">
+                                    <img :src="item.face" class="video_image">
                                 </div>
                             </el-col>
                             <el-col :span="17">
                                 <div id="info">
-                                    <div id="work_name" class="single_line">{{item.title}}</div>
-                                    <div id="work_author">{{item.owner.name }}</div>
-                                    <div id="work_kudos">
-                                        <i class="icon icon-font icon-aixin1 aixin_fill"></i>
-                                        <div id="kudos_num">{{item.stat.favorite}}</div>
+                                    <div id="work_name" class="single_line">
+                                        <a :href="'https://www.bilibili.com/video/'+item.bv" target="_blank">{{item.name}}</a>
                                     </div>
+                                    <div id="work_author">{{item.owner}}</div>
+                             <!--       <div id="work_kudos">
+                                        <i class="icon icon-font icon-aixin1 aixin_fill"></i>
+                                        <div id="kudos_num">{{item.aid}}</div>
+                                    </div>
+                                    -->
                                     <div class="work_abstract two_line">
                                         {{item.desc}}
                                     </div>
@@ -112,14 +116,14 @@
                 value: 'time',
                 select_work: 1,
                 loading:false,
-                length:10,
-                video:[]
 
             }
         },
         methods: {
             radioChange(value) {
                 this.select_work = value;
+                // if(value==='3')
+                //     this.getVideoMsg();
             },
             selectChange(val) {
                 console.log(val);
@@ -129,11 +133,12 @@
                 }else{
                     this.$store.dispatch('allImgs');
                     this.$store.dispatch('allFics');
+                    this.$store.dispatch('allVideos');
                 }
             },
-            pageChange(val){
-                console.log(val);
-            },
+            // pageChange(val){
+            //     console.log(val);
+            // },
             fetchData(){
                 this.loading=true;
                 // error  'getPost' is not defined  no-undef
@@ -150,26 +155,15 @@
                 }
             },
             getVideoMsg(){
-                // axios
-                // .get('https://api.bilibili.com/x/web-interface/view?aid='+this.videos[0].aid)
-                // .then(response=>(this.video[i]=response.data))
-                console.log('get')
+
+
             }
         },
         created() {
             this.fetchData();
-            if (this.imgs.length === 0) {
-                this.$store.dispatch('allImgs');
-                this.length=this.imgs.length;
-            }
-            if (this.fics.length === 0) {
-                this.$store.dispatch('allFics');
-                this.length=this.fics.length;
-            }
-            if (this.videos.length === 0) {
-                this.$store.dispatch('allVideos');
-                this.length=this.videos.length;
-            }
+            this.$store.dispatch('allImgs');
+            this.$store.dispatch('allFics');
+            this.$store.dispatch('allVideos');
         },
         watch: {
             select_work(sw) {
@@ -181,7 +175,6 @@
             }
         },
         mounted() {
-
                 
         },
         computed: {
@@ -192,7 +185,7 @@
                 return this.$store.getters.allFics;
             },
             videos(){
-                this.getVideoMsg();
+                // this.getVideoMsg();
                 return this.$store.getters.allVideos;
             }
         },
@@ -229,7 +222,13 @@
         margin-top: 13px;
         line-height: 12px;
    }
-    .image {
+    .video_image{
+        width: 250px;
+        display: block;
+        height: 150px;
+        object-fit: cover;
+    }
+    .img_image {
         width: 100%;
         display: block;
         height: 250px;

@@ -32,4 +32,11 @@ export default {
 .aixin_fill{
   color:#fa6d5a
 }
+
+.icon-aixin1{
+  color:#fa6d5a
+}
+.icon-aixin{
+  color:#fa6d5a
+}
 </style>

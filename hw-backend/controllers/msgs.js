@@ -11,6 +11,11 @@ const msgsController = {
             .find({}).sort({kudos:-1})
             .exec((err,msgs)=>res.json(msgs));
     },
+    limitReturn(req,res){
+        msgsModel
+            .find({}).sort({kudos:-1}).limit(3)
+            .exec((err,msgs)=>res.json(msgs));
+    },
     create(req, res) {
         const requestBody = req.body;
         const newMsg = new msgsModel(requestBody);

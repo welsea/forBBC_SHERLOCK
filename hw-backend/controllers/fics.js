@@ -11,6 +11,11 @@ const ficsController = {
             .find({}).sort({kudos:-1})
             .exec((err,fics)=>res.json(fics));
     },
+    limitReturn(req,res){
+        ficsModel
+            .find({}).sort({kudos:-1}).limit(10)
+            .exec((err,fics)=>res.json(fics));
+    },
     create(req, res) {
         const requestBody = req.body;
         const newFic = new ficsModel(requestBody);

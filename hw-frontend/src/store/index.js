@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import axios from 'axios';
 
 const API_BASE = 'http://localhost:3000/api/v1';
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -58,6 +57,20 @@ export default new Vuex.Store({
         const { videos }=payload;
         state.videos=videos;
       },
+      MSG_VIDEOS(state,payload){
+        const { videoMsg }=payload;
+        state.videoMsg=videoMsg;
+      },
+
+      //MSG
+      ALL_MSGS(state,payload){
+        const { msgs }=payload;
+        state.msgs=msgs;
+      },
+      ADD_MSG(state,payload){
+        const { msg }=payload;
+        state.msgs.push(msg);
+    },
   },
   getters:{
     allNotes(state){
@@ -71,7 +84,11 @@ export default new Vuex.Store({
     },
     allVideos(state){
       return state.videos;
-    }
+    },
+    allMsgs(state){
+      return state.msgs;
+    },
+
   },
   actions:{
     allNotes({ commit }){
@@ -108,6 +125,14 @@ export default new Vuex.Store({
         })
       })  
     },
+    limitImgs({commit},payload){
+      axios.get(`${API_BASE}/imgs/commend`).then(response=>{
+        console.log('response',response);
+        commit('ALL_IMGS',{
+          imgs:response.data,
+        })
+      })  
+    },
     allFics({ commit }){
       axios.get(`${API_BASE}/fics`).then(response=>{
         console.log('response',response);
@@ -124,6 +149,14 @@ export default new Vuex.Store({
         })
       })  
     },
+    limitFics({commit},payload){
+      axios.get(`${API_BASE}/fics/commend`).then(response=>{
+        console.log('response',response);
+        commit('ALL_FICS',{
+          fics:response.data,
+        })
+      }) 
+    },
     allVideos({ commit }){
       axios.get(`${API_BASE}/videos`).then(response=>{
         console.log('response',response);
@@ -139,6 +172,48 @@ export default new Vuex.Store({
           videos:response.data,
         })
       })  
-    }
+    },
+    limitVideos({commit},payload){
+      axios.get(`${API_BASE}/videos/commend`).then(response=>{
+        console.log('response',response);
+        commit('ALL_VIDEOS',{
+          videos:response.data,
+        })
+      })  
+    },
+    allMsgs({ commit }){
+      axios.get(`${API_BASE}/msgs`).then(response=>{
+        console.log('response',response);
+        commit('ALL_MSGS',{
+          msgs:response.data,
+        })
+      })
+    },
+    allMsgsSort({commit},payload){
+      axios.get(`${API_BASE}/msgs/sort`).then(response=>{
+        console.log('response',response);
+        commit('ALL_MSGS',{
+          msgs:response.data,
+        })
+      })  
+    },
+    limitMsgs({commit},payload){
+      axios.get(`${API_BASE}/msgs/commend`).then(response=>{
+        console.log('response',response);
+        commit('ALL_MSGS',{
+          msgs:response.data,
+        })
+      })  
+    },
+    addMsg({commit},payload){
+      const{ msg }=payload;
+
+      axios.post(`${API_BASE}/msgs`,msg).then(response=>{
+        console.log('response',response);
+        commit('ADD_MSG',{
+          msg:response.data,
+        })
+      })
+    },
   }
 })

@@ -16,7 +16,6 @@ var usersRouter = require('./routes/users');
 // var notesRouter=require('./routes/notes');
 const api=require('./routes/api')
 
-
 var app = express();
  
 //mongoose
@@ -42,7 +41,7 @@ db.on('disconnect',function(){
 })
 
 // CORS config here
-app.all('/*', function(req, res, next) {
+app.all('*', function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -71,6 +70,8 @@ app.use('/users', usersRouter);
 // app.use('/video',videoRouter);
 // app.use('/notes',notesRouter);
 app.use('/api/v1',api);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,6 +6,11 @@ const videosController = {
         videosModel.find({}).sort({ _id:-1})
             .exec((err, videos) => res.json(videos))
     },
+    find(req, res){
+        const keyword=req.query.kw;
+        videosModel.find({name:keyword}).sort({ _id:-1})
+            .exec((err, videos) => res.json(videos))
+    },
     sortBy(req,res){
         videosModel
             .find({}).sort({kudos:-1})

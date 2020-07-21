@@ -6,6 +6,16 @@ const ficsController = {
         ficsModel.find({}).sort({ _id:-1})
             .exec((err, fics) => res.json(fics))
     },
+    find(req, res){
+        const keyword=req.query.kw;
+        ficsModel.find({name:keyword}).sort({ _id:-1})
+            .exec((err, fics) => res.json(fics))
+    },
+    byId(req,res){
+        const id=req.query.id;
+        ficsModel.findOne({_id:id})
+            .exec((err, fics) => res.json(fics))
+    },
     sortBy(req,res){
         ficsModel
             .find({}).sort({kudos:-1})

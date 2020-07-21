@@ -6,6 +6,16 @@ const imgsController = {
         imgsModel.find({}).sort({ _id:-1})
             .exec((err, imgs) => res.json(imgs))
     },
+    find(req, res){
+        const keyword=req.query.kw;
+        imgsModel.find({name:{ $regex: '.*' + keyword + '.*' } }).sort({ _id:-1})
+            .exec((err, imgs) => res.json(imgs))
+    },
+    byId(req,res){
+        const id=req.query.id;
+        imgsModel.findOne({_id:id})
+            .exec((err, imgs) => res.json(imgs))
+    },
     sortBy(req,res){
         imgsModel
             .find({}).sort({kudos:-1})

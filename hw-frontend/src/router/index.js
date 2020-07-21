@@ -7,6 +7,8 @@ import Commend from '@/components/Commend'
 import Message from '@/components/Message'
 import Notes from '@/components/Notes'
 import Add from '@/components/admin/Add'
+import Search from '@/components/Search'
+import Item from '@/components/Item'
 
 
 Vue.use(VueRouter)
@@ -37,6 +39,14 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/item',
+            component: Item,
+            name:'item',
+            meta: {
+            title: 'item'
+            }
+        },
+        {
             path: '/commend',
             component: Commend,
             meta: {
@@ -62,6 +72,13 @@ const router = new VueRouter({
             component: Add,
             meta: {
             title: 'housekeeper'
+            }
+        },
+        {
+            path: '/search',
+            component: Search,
+            meta: {
+            title: 'search'
             }
         }
     ]

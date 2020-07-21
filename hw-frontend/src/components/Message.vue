@@ -18,16 +18,15 @@
     </div>
     <div class="msg_list">
       <div id="line" style="margin-bottom: 40px;"></div>
-      <el-card style="margin-bottom:30px" v-for="item in msgs" :key="item._id" :body-style="{ padding: '0px' }"
-        class="msg_commend_item">
-        <div class="msg_line1">
+      <el-card style="margin-bottom:30px" v-for="item in msgs" :key="item._id" :body-style="{ padding: '0px' }" class="msg_item">
+        <div class="msg_line_1">
           {{ item.title}}
         </div>
-        <div class="msg_line2_2">
-          <i class="icon iconfont icon-account-fil "  style="font-size:20px"></i>
+        <div class="msg_line_2_2">
+          <i class="icon icon-font icon-account-fill"  style="font-size:20px"></i>
           <div style="font-size:17px;margin-left:5px">{{item.name}}</div>
         </div>
-        <div class="msg_commend_ct">
+        <div class="msg__ct">
           {{item.content}}
         </div>
         <div id="work_kudos">
@@ -98,20 +97,20 @@
     margin: 50px 30px;
   }
 
-  .msg_line2_2 {
+  .msg_line_2_2 {
     display: flex;
     padding: 15px 0;
   }
 
-  .msg_commend_item {
+  .msg_item {
     padding: 20px;
   }
 
-  .msg_line1 {
+  .msg_line_1 {
     font-size: 20px;
   }
 
-  .msg_line1 img {
+  .msg_line_1 img {
     width: 40px;
     border-radius: 20px;
   }

@@ -39,7 +39,7 @@
     </div>
 
     <div id="line"></div>
-    <div id="title1" style="margin-top:40px;">图区推荐</div>
+    <div id="title1" style="margin-top:100px;">图区推荐</div>
     <div class="more_btn" @click="jumpToPic">查看更多</div>
     <div class="intro">这里是图区推荐balabala</div>
     <div id="pic_commend" class="flex_content">
@@ -69,17 +69,19 @@
 
 
     <div id="line"></div>
-    <div id="title1" style="margin-top:40px;">视频推荐</div>
+    <div id="title1" style="margin-top:100px;">视频推荐</div>
     <div class="more_btn" @click="jumpToVid">查看更多</div>
     <div class="intro">这里是视频推荐balabala</div>
     <div id="video_commend" class="flex_content">
       <!---      <swiper ref="mySwiper" :options="swiperOptions">
         <swiper-slide >
   -->
-      <el-card v-for="item in videos" :key="item.bv" :body-style="{ padding: '0px' }" class="video_commend_item">
+      <el-card v-for="item in videos" :key="item._id" :body-style="{ padding: '0px' }" class="video_commend_item">
         <img :src="item.face" class="cvideo_image">
         <div class="video_commend_info">
-          <div class="video_commend_title single_line">{{ item.name }}</div>
+          <div class="video_commend_title single_line">
+             <a :href="'https://www.bilibili.com/video/'+item.bv" target="_blank">{{item.name}}</a>
+          </div>
           <div class="video_info_2">
            <!-- <div id="work_kudos">
               <i class="icon icon-font icon-aixin1 aixin_fill"></i>
@@ -98,7 +100,8 @@
     </div>
 
     <div id="line"></div>
-    <div id="title1" style="margin-top:40px;">精选留言</div>
+    <div id="title1" style="margin-top:100px;">精选留言</div>
+    <div class="more_btn" @click="jumpToMsg">查看更多</div>
     <div class="intro">这里是精选留言balabala</div>
     <div id="msg_commend" style="margin-bottom:50px" class="flex_content">
       <!--      
@@ -201,6 +204,11 @@
           query: {
             select_work: 3
           }
+        })
+      },
+      jumpToMsg(){
+        this.$router.push({
+          path:'/message'
         })
       }
     },

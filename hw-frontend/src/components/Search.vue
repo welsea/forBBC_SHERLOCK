@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="title1"><i class="el-icon-search"></i> 您的搜索结果如下</div>
+    <div id="title1"><i class="el-icon-search"></i> 找到{{fics.length+imgs.length+videos.length}}条结果</div>
     <div id="line"></div>
     <el-row :gutter="24" type="flex" justify="space-between">
       <el-col :span="8">
@@ -12,67 +12,95 @@
       </el-col>
     </el-row>
     <div class="search_results">
+    
       <div v-if="select_work==1">
-        <div class="result_item" v-for="item in 10" :key="item">
-          <div style="width:5%;text-align:center"> {{item}}</div>
-          <div style="width:80%">
-            <div>from name</div>
-            <div>owner</div>
-          </div>
-          <div style="width:10%">
-            <div id="work_kudos">
-              <i class="icon icon-font icon-aixin1 aixin_fill"></i>
-              <div id="kudos_num">1</div>
+        <div v-if="fics.length==0">
+          未找到符合搜索结果的【文区】内容
+        </div>
+        <div v-else>
+          <div class="result_item" v-for="(fic,i) in fics" :key="fic._id">
+            <div style="width:5%;text-align:center"> {{i+1}}</div>
+            <div style="width:80%">
+              <div>{{fic.name}}</div>
+              <div>{{fic.author}}</div>
+            </div>
+            <div style="width:10%">
+              <div id="work_kudos">
+                <i class="icon icon-font icon-aixin1 aixin_fill"></i>
+                <div id="kudos_num">{{fic.kudos}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div v-else-if="select_work==2">
-        <el-row :gutter="24">
-          <el-col :span="8" v-for="img in 10" :key="img">
-            <div style="marginBottom:30px">
-              <el-card :body-style="{ padding: '0px' }">
-                <img :src="img" class="img_image">
-                <div style="padding: 14px;">
-                  <span>{{img}}</span>
-                  <div id="work_kudos">
-                    <i class="icon icon-font icon-aixin1 aixin_fill"></i>
-                    <div id="kudos_num">{{ img}}</div>
-                  </div>
-                  <div class="bottom clearfix">
-                    <div class="author_info">
-                      <i class="icon icon-font icon-account-fill" style="font-size:20px"></i>
-                      <span>{{ img }}</span>
+        <div v-if="imgs.length==0">
+          未找到符合搜索结果的【图区】内容
+        </div>
+        <div v-else>
+          <el-row :gutter="24">
+            <el-col :span="8" v-for="img in imgs" :key="img._id">
+              <div style="marginBottom:30px">
+                <el-card :body-style="{ padding: '0px' }">
+                  <img :src="img.url" class="img_image">
+                  <div style="padding: 14px;">
+                    <span>{{img.name}}</span>
+                    <div id="work_kudos">
+                      <i class="icon icon-font icon-aixin1 aixin_fill"></i>
+                      <div id="kudos_num">{{ img.kudos }}</div>
+                    </div>
+                    <div class="bottom clearfix">
+                      <div class="author_info">
+                        <i class="icon icon-font icon-account-fill" style="font-size:20px"></i>
+                        <span>{{ img.artist }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </el-card>
-            </div>
+                </el-card>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
 
-          </el-col>
-        </el-row>
       </div>
 
       <div v-else>
-        <el-row :gutter="24">
-          <el-col :span="8" v-for="item in 10" :key="item" style="margin:20px 0;">
-            <el-card :body-style="{ padding: '0px' }" class="video_commend_item">
-              <img :src="item" class="cvideo_image">
-              <div class="video_commend_info">
-                <div class="video_commend_title single_line">
-                  <a :href="'https://www.bilibili.com/video/'+item" target="_blank">{{item}}</a>
+        <div v-if="videos.length==0">
+          未找到符合搜索结果的【视频区】内容
+        </div>
+        <div v-else>
+          <el-card style="margin-bottom: 30px;padding:10px;" v-for="(item,i) in videos" :key="i"
+            class="video_commend_item">
+            <el-row class="video_item">
+              <el-col :span="6">
+                <div id="video_img">
+                  <img :src="item.face" class="video_image">
                 </div>
-                <div class="video_info_2">
-                  <div class="video_commend_artist">
-                    <i class="icon icon-font icon-account-fill" style="font-size:20px"></i>
-                    {{item}}</div>
+              </el-col>
+              <el-col :span="17">
+                <div id="info">
+                  <div id="work_name" class="single_line">
+                    <a :href="'https://www.bilibili.com/video/'+item.bv" target="_blank">{{item.name}}</a>
+                  </div>
+                  <div id="work_author">{{item.owner}}</div>
+                  <!--       <div id="work_kudos">
+                                        <i class="icon icon-font icon-aixin1 aixin_fill"></i>
+                                        <div id="kudos_num">{{item.aid}}</div>
+                                    </div>
+                                    -->
+                  <div class="work_abstract two_line">
+                    {{item.desc}}
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+              </el-col>
+            </el-row>
+          </el-card>
+        </div>
+
       </div>
+
+
     </div>
   </div>
 </template>
@@ -83,7 +111,6 @@
         radio: '1',
         value: 'time',
         select_work: 1,
-        result: []
       }
     },
     methods: {
@@ -95,23 +122,29 @@
 
     },
     created() {
+
       this.$store.dispatch('findImgs', {
         kw: this.$route.query.kw
       });
-      // this.$store.dispatch('allFics');
-      // this.$store.dispatch('allVideos');
+      this.$store.dispatch('findFics', {
+        kw: this.$route.query.kw
+      });
+      this.$store.dispatch('findVideos', {
+        kw: this.$route.query.kw
+      });
+
     },
     computed: {
       imgs() {
         return this.$store.getters.allImgs;
       },
-      // fics() {
-      //   return this.$store.getters.allFics;
-      // },
-      // videos() {
-      //   // this.getVideoMsg();
-      //   return this.$store.getters.allVideos;
-      // }
+      fics() {
+        return this.$store.getters.allFics;
+      },
+      videos() {
+        return this.$store.getters.allVideos;
+      },
+
     },
   }
 
@@ -141,7 +174,6 @@
   }
 
   #work_kudos {
-    float: right;
     background: #fff;
     padding: 5px 6px;
     border-radius: 20px;
@@ -154,6 +186,33 @@
     border: 1px solid #fad4d3;
     margin: 5px 0;
     height: fit-content;
+  }
+
+  .img_image {
+    width: 100%;
+    display: block;
+    height: 250px;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  #video_img {
+    width: 240px;
+    background: #fff;
+    display: inline-block;
+    border-radius: 20px;
+  }
+
+  .video_image {
+    width: 250px;
+    display: block;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .video_item {
+    display: flex;
+    align-items: center;
   }
 
 </style>

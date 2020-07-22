@@ -21,7 +21,7 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main>
+      <el-main class="main-container">
         <el-row :gutter="24">
           <el-col :span="18" :offset="3">
             <router-view></router-view>
@@ -82,6 +82,10 @@
             kw:this.search_e
           }
         })
+
+        if(this.$route.path=='/search'){
+          location.reload()
+        }
       }
     }
 
@@ -147,4 +151,7 @@
     padding: 30px 0 50px 0;
   }
 
+  .main-container{
+    min-height:700px;
+  }
 </style>

@@ -8,7 +8,7 @@ const videosController = {
     },
     find(req, res){
         const keyword=req.query.kw;
-        videosModel.find({name:keyword}).sort({ _id:-1})
+        videosModel.find({name:{ $regex: '.*' + keyword + '.*' } }).sort({ _id:-1})
             .exec((err, videos) => res.json(videos))
     },
     sortBy(req,res){

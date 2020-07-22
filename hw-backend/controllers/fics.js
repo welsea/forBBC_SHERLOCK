@@ -8,7 +8,7 @@ const ficsController = {
     },
     find(req, res){
         const keyword=req.query.kw;
-        ficsModel.find({name:keyword}).sort({ _id:-1})
+        ficsModel.find({name:{ $regex: '.*' + keyword + '.*' } }).sort({ _id:-1})
             .exec((err, fics) => res.json(fics))
     },
     byId(req,res){

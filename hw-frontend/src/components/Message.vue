@@ -29,7 +29,7 @@
         <div class="msg__ct">
           {{item.content}}
         </div>
-        <div id="work_kudos">
+        <div id="work_kudos" class="msg_kudos">
           <i class="icon icon-font " :class="activeLike === 'true'?'icon-aixin1' : 'icon-aixin'" @click="changeLike"></i>
           <div id="kudos_num">{{item.kudos}}</div>
         </div>
@@ -116,7 +116,6 @@
   }
 
   #work_kudos {
-    float: right;
     background: #fff;
     padding: 5px 6px;
     border-radius: 20px;
@@ -129,6 +128,11 @@
     border: 1px solid #fad4d3;
     margin: 5px 0;
     height: fit-content;
+  }
+
+  .msg_kudos{
+    float: right;
+
   }
 
 </style>

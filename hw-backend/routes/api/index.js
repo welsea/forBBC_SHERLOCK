@@ -41,7 +41,7 @@ router.delete('/fics/:id', ficsController.remove);
 router.get('/videos', videosController.all);
 router.get('/videos/sort', videosController.sortBy);
 router.get('/videos/commend',videosController.limitReturn);
-router.get('/videos/find',ficsController.find);
+router.get('/videos/find',videosController.find);
 router.post('/videos', videosController.create);
 router.put('/videos/:id', videosController.update);
 router.delete('/videos/:id', videosController.remove);

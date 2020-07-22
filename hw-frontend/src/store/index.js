@@ -205,7 +205,7 @@ export default new Vuex.Store({
       commit
     }, payload){
       const { kw } = payload;
-      axios.get(`${API_BASE}/imgs?kw=${kw}`).then(response => {
+      axios.get(`${API_BASE}/imgs/find?kw=${kw}`).then(response => {
         commit('ALL_IMGS', {
           imgs: response.data
         });
@@ -243,6 +243,16 @@ export default new Vuex.Store({
         })
       })
     },
+    findFics({
+      commit
+    }, payload){
+      const { kw } = payload;
+      axios.get(`${API_BASE}/fics/find?kw=${kw}`).then(response => {
+        commit('ALL_FICS', {
+          fics: response.data
+        });
+      })
+    },
 
     //video
     allVideos({
@@ -273,6 +283,16 @@ export default new Vuex.Store({
         commit('ALL_VIDEOS', {
           videos: response.data,
         })
+      })
+    },
+    findVideos({
+      commit
+    }, payload){
+      const { kw } = payload;
+      axios.get(`${API_BASE}/videos/find?kw=${kw}`).then(response => {
+        commit('ALL_VIDEOS', {
+          videos: response.data
+        });
       })
     },
 

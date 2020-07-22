@@ -14,7 +14,7 @@ const ficsController = {
     byId(req,res){
         const id=req.query.id;
         ficsModel.findOne({_id:id})
-            .exec((err, fics) => res.json(fics))
+            .exec((err, fic) => res.json(fic))
     },
     sortBy(req,res){
         ficsModel

@@ -9,7 +9,7 @@
             <div id="work1_title" class="single_line">name</div>
             <div id="work1_info">
               <div>author</div>
-             <div class="commend_contact">24342@mail.com</div>
+              <div class="commend_contact">24342@mail.com</div>
               <div id="work_kudos">
                 <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                 <div id="kudos_num">kudos</div>
@@ -21,10 +21,11 @@
         </el-col>
         <el-col :span="16">
           <div id="instant_c">即时热门推荐</div>
-          <div v-for="(item,i) in fics" :key="item._id" id="work_common" :class="{work_top3: i<3 , others_commend:i>=3}">
+          <div v-for="(item,i) in fics" :key="item._id" id="work_common"
+            :class="{work_top3: i<3 , others_commend:i>=3}">
             <div class="commend_num">{{ i+1 }} <span v-if="i<3">-</span></div>
             <div class="commend_info">
-              <div class="commend_title single_line">{{item.name}}</div>
+              <div class="commend_title single_line" @click="jumpToItem(item._id,'fic')">{{item.name}}</div>
               <div class="commend_author">{{item.author}}</div>
               <div class="commend_abstract" v-if="i<3">{{item.summary}}</div>
             </div>
@@ -49,9 +50,9 @@
 -->
       <el-card v-for="item in imgs" :key="item._id" :body-style="{ padding: '0px' }" class="pic_commend_item"
         shadow="never">
-        <img :src="item.url" class="cimg_image">
+        <img :src="item.url" @click="jumpToItem(item._id)" class="cimg_image">
         <div class="pic_commend_info">
-          <div class="pic_commend_title">{{item.name}}</div>
+          <div class="pic_commend_title" @click="jumpToItem(item._id,'img')">{{item.name}}</div>
           <div class="pic_commend_artist">{{item.artist}}</div>
           <div id="work_kudos">
             <i class="icon icon-font icon-aixin1 aixin_fill"></i>
@@ -80,10 +81,10 @@
         <img :src="item.face" class="cvideo_image">
         <div class="video_commend_info">
           <div class="video_commend_title single_line">
-             <a :href="'https://www.bilibili.com/video/'+item.bv" target="_blank">{{item.name}}</a>
+            <a :href="'https://www.bilibili.com/video/'+item.bv" target="_blank">{{item.name}}</a>
           </div>
           <div class="video_info_2">
-           <!-- <div id="work_kudos">
+            <!-- <div id="work_kudos">
               <i class="icon icon-font icon-aixin1 aixin_fill"></i>
               <div id="kudos_num">324</div>
             </div>
@@ -155,13 +156,14 @@
         //     // prevEl: '.swiper-button-prev'
         //   },
         // }
+        from:''
       }
     },
     created() {
-        this.$store.dispatch('limitImgs');
-        this.$store.dispatch('limitFics');
-        this.$store.dispatch('limitVideos');
-        this.$store.dispatch('limitMsgs');
+      this.$store.dispatch('limitImgs');
+      this.$store.dispatch('limitFics');
+      this.$store.dispatch('limitVideos');
+      this.$store.dispatch('limitMsgs');
     },
     computed: {
       // swiper() {
@@ -170,14 +172,14 @@
       imgs() {
         return this.$store.getters.allImgs;
       },
-      fics(){
-          return this.$store.getters.allFics;
+      fics() {
+        return this.$store.getters.allFics;
       },
-      videos(){
-          return this.$store.getters.allVideos;
+      videos() {
+        return this.$store.getters.allVideos;
       },
-      msgs(){
-          return this.$store.getters.allMsgs;
+      msgs() {
+        return this.$store.getters.allMsgs;
       }
 
     },
@@ -206,11 +208,26 @@
           }
         })
       },
-      jumpToMsg(){
+      jumpToMsg() {
         this.$router.push({
-          path:'/message'
+          path: '/message'
         })
-      }
+      },
+      jumpToItem(id,from) {
+        if (from == 'fic') {
+          this.from = "fics"
+        } else {
+          this.from = "imgs"
+        }
+        this.$router.push({
+          path: '/item',
+          query: {
+            id: id,
+            from: this.from,
+          }
+        })
+
+      },
     },
     mounted() {
       // console.log('Current Swiper instance object', this.swiper)

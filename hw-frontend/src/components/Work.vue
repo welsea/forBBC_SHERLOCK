@@ -25,7 +25,7 @@
         <div v-if="select_work==1">
           <el-card id="work_item" v-for="item in fics" :key="item._id">
             <div id="info">
-              <div id="work_name">{{item.name}}</div>
+              <div id="work_name"@click="jumpToItem(item._id)">{{item.name}}</div>
               <div id="work_author">{{item.author}}</div>
               <div id="work_kudos">
                 <i class="icon icon-font icon-aixin1 aixin_fill"></i>
@@ -43,7 +43,7 @@
             <el-col :span="8" v-for="img in imgs" :key="img._id">
               <div style="marginBottom:30px">
                 <el-card :body-style="{ padding: '0px' }">
-                  <img :src="img.url" class="img_image">
+                  <img @click="jumpToItem(img._id)" :src="img.url" class="img_image">
                   <div style="padding: 14px;">
                     <span @click="jumpToItem(img._id)">{{img.name}}</span>
                     <div id="work_kudos">
@@ -142,7 +142,7 @@
         //     this.getVideoMsg();
       },
       selectChange(val) {
-        console.log(val);
+        // console.log(val);
         if (val === 'kudos') {
           this.$store.dispatch('allImgsSort');
           this.$store.dispatch('allFicsSort');

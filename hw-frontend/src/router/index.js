@@ -9,7 +9,7 @@ import Notes from '@/components/Notes'
 import Add from '@/components/admin/Add'
 import Search from '@/components/Search'
 import Item from '@/components/Item'
-
+import addFic from '@/components/admin/AddFic'
 
 Vue.use(VueRouter)
 
@@ -84,6 +84,13 @@ const router = new VueRouter({
             component: Search,
             meta: {
             title: 'search'
+            }
+        },
+        {
+            path:'/add_fic',
+            component:addFic,
+            meta:{
+                title:'add_fic'
             }
         }
     ]

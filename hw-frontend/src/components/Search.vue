@@ -21,8 +21,8 @@
           <div class="result_item" v-for="(fic,i) in fics" :key="fic._id">
             <div style="width:5%;text-align:center"> {{i+1}}</div>
             <div style="width:80%">
-              <div>{{fic.name}}</div>
-              <div>{{fic.author}}</div>
+              <div @click="jumpToItem(fic._id)">{{fic.name}}</div>
+              <div style="font-size:14px;margin:10px 0">{{fic.author}}</div>
             </div>
             <div style="width:10%">
               <div id="work_kudos">
@@ -43,9 +43,9 @@
             <el-col :span="8" v-for="img in imgs" :key="img._id">
               <div style="marginBottom:30px">
                 <el-card :body-style="{ padding: '0px' }">
-                  <img :src="img.url" class="img_image">
+                  <img @click="jumpToItem(img._id)" :src="img.url" class="img_image">
                   <div style="padding: 14px;">
-                    <span>{{img.name}}</span>
+                    <span @click="jumpToItem(img._id)">{{img.name}}</span>
                     <div id="work_kudos">
                       <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                       <div id="kudos_num">{{ img.kudos }}</div>
@@ -111,6 +111,7 @@
         radio: '1',
         value: 'time',
         select_work: 1,
+        from:''
       }
     },
     methods: {
@@ -119,7 +120,21 @@
         // if(value==='3')
         //     this.getVideoMsg();
       },
+      jumpToItem(id) {
+        if (this.select_work === 1) {
+          this.from = "fics"
+        } else {
+          this.from = "imgs"
+        }
+        this.$router.push({
+          path: '/item',
+          query: {
+            id: id,
+            from: this.from,
+          }
+        })
 
+      },
     },
     created() {
 

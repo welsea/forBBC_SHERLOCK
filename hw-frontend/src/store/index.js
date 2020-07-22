@@ -57,7 +57,7 @@ export default new Vuex.Store({
       const {
         img
       } = payload;
-      state.product = img;
+      state.img = img;
     },
 
     //fic
@@ -77,7 +77,7 @@ export default new Vuex.Store({
       const {
         fic
       } = payload;
-      state.product = fic;
+      state.fic = fic;
     },
 
     //video
@@ -115,16 +115,14 @@ export default new Vuex.Store({
     allImgs(state) {
       return state.imgs;
     },
-    imgById: (state, getters) => id => {
-      if (getters.allImgs.length > 0) {
-        return getters.allImgs.filter(img => img._id === id)[0]
-      } else {
-        return state.img;
-      }
-
+    imgById(state) {
+      return state.img;
     },
     allFics(state) {
       return state.fics;
+    },
+    ficById(state){
+      return state.fic;
     },
     allVideos(state) {
       return state.videos;
@@ -194,7 +192,9 @@ export default new Vuex.Store({
     imgById({
       commit
     }, payload) {
-      const { id } = payload;
+      const {
+        id
+      } = payload;
       axios.get(`${API_BASE}/img?id=${id}`).then(response => {
         commit('IMG_BY_ID', {
           img: response.data
@@ -203,8 +203,10 @@ export default new Vuex.Store({
     },
     findImgs({
       commit
-    }, payload){
-      const { kw } = payload;
+    }, payload) {
+      const {
+        kw
+      } = payload;
       axios.get(`${API_BASE}/imgs/find?kw=${kw}`).then(response => {
         commit('ALL_IMGS', {
           imgs: response.data
@@ -243,10 +245,24 @@ export default new Vuex.Store({
         })
       })
     },
+    ficById({
+      commit
+    }, payload) {
+      const {
+        id
+      } = payload;
+      axios.get(`${API_BASE}/fic?id=${id}`).then(response => {
+        commit('FIC_BY_ID', {
+          fic: response.data
+        });
+      })
+    },
     findFics({
       commit
-    }, payload){
-      const { kw } = payload;
+    }, payload) {
+      const {
+        kw
+      } = payload;
       axios.get(`${API_BASE}/fics/find?kw=${kw}`).then(response => {
         commit('ALL_FICS', {
           fics: response.data
@@ -287,8 +303,10 @@ export default new Vuex.Store({
     },
     findVideos({
       commit
-    }, payload){
-      const { kw } = payload;
+    }, payload) {
+      const {
+        kw
+      } = payload;
       axios.get(`${API_BASE}/videos/find?kw=${kw}`).then(response => {
         commit('ALL_VIDEOS', {
           videos: response.data

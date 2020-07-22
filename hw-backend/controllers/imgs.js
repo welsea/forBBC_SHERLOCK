@@ -14,7 +14,7 @@ const imgsController = {
     byId(req,res){
         const id=req.query.id;
         imgsModel.findOne({_id:id})
-            .exec((err, imgs) => res.json(imgs))
+            .exec((err, img) => res.json(img))
     },
     sortBy(req,res){
         imgsModel

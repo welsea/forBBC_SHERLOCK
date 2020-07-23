@@ -25,27 +25,27 @@ const msgsController = {
                 .findOne({
                     _id: newMsg._id
                 })
-                .exec((err, msgs) => res.json(msgs))
+                .exec((err, msg) => res.json(msg))
         })
     },
     update(req, res) {
-        const idParams = req.params.id;
-        let msgs= req.body;
+        const idquery = req.query.id;
+        let msg= req.body;
 
         msgsModel.updateOne({
-            _id: idParams
+            _id: idquery
         }, {
-            ...msgs
+            ...msg
         }, (err, updated) => {
             res.json(updated);
         })
     },
     remove(req, res) {
-        const idParams = req.params.id;
+        const idquery = req.query.id;
 
         msgsModel.findOne({
-            _id: idParams
-        }).remove((err, removed) => res.json(idParams))
+            _id: idquery
+        }).remove((err, removed) => res.json(idquery))
     }
 }
 

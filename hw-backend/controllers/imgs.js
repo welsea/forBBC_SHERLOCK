@@ -35,27 +35,27 @@ const imgsController = {
                 .findOne({
                     _id: newImg._id
                 })
-                .exec((err, imgs) => res.json(imgs))
+                .exec((err, img) => res.json(img))
         })
     },
     update(req, res) {
-        const idParams = req.params.id;
-        let imgs= req.body;
+        const idquery = req.query.id;
+        let img= req.body;
 
         imgsModel.updateOne({
-            _id: idParams
+            _id: idquery
         }, {
-            ...imgs
+            ...img
         }, (err, updated) => {
             res.json(updated);
         })
     },
     remove(req, res) {
-        const idParams = req.params.id;
+        const idquery = req.query.id;
 
         imgsModel.findOne({
-            _id: idParams
-        }).remove((err, removed) => res.json(idParams))
+            _id: idquery
+        }).remove((err, removed) => res.json(idquery))
     }
 }
 

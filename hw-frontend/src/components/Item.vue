@@ -7,13 +7,14 @@
       <div class="fic_name">{{fic.name}}</div>
       <div class="fic_author">{{fic.author}}</div>
       <div class="fic_sum">
-        Summary:
+        <i>Summary:</i>
         <div>
-          {{fic.summary}}
-
+          <i>
+            {{fic.summary}}
+          </i>
         </div>
       </div>
-      <div class="fic_content">{{fic.content}}</div>
+      <div class="fic_content" v-html="fic.content"></div>
       <div style="display: flex;justify-content: flex-end;">
         <div id="work_kudos">
           <i class="icon icon-font icon-aixin1 aixin_fill"></i>
@@ -147,8 +148,8 @@
   }
 
   .fic_name {
-    font-size: 22px;
-    margin: 0 0 30px;
+    font-size: 24px;
+    margin: 0 0 20px;
     text-align: center;
   }
 

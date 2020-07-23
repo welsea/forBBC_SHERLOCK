@@ -35,27 +35,27 @@ const ficsController = {
                 .findOne({
                     _id: newFic._id
                 })
-                .exec((err, fics) => res.json(fics))
+                .exec((err, fic) => res.json(fic))
         })
     },
     update(req, res) {
-        const idParams = req.params.id;
-        let fics= req.body;
+        // const idQuery = req.query.id;
+        let fic= req.body;
 
         ficsModel.updateOne({
-            _id: idParams
+            _id: fic._id
         }, {
-            ...fics
+            ...fic
         }, (err, updated) => {
             res.json(updated);
         })
     },
     remove(req, res) {
-        const idParams = req.params.id;
+        const idquery = req.query.id;
 
         ficsModel.findOne({
-            _id: idParams
-        }).remove((err, removed) => res.json(idParams))
+            _id: idquery
+        }).remove((err, removed) => res.json(idquery))
     }
 }
 

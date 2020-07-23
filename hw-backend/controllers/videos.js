@@ -30,27 +30,27 @@ const videosController = {
                 .findOne({
                     _id: newVideo._id
                 })
-                .exec((err, videos) => res.json(videos))
+                .exec((err, video) => res.json(video))
         })
     },
     update(req, res) {
-        const idParams = req.params.id;
-        let videos= req.body;
+        const idquery = req.query.id;
+        let video= req.body;
 
         videosModel.updateOne({
-            _id: idParams
+            _id: idquery
         }, {
-            ...videos
+            ...video
         }, (err, updated) => {
             res.json(updated);
         })
     },
     remove(req, res) {
-        const idParams = req.params.id;
+        const idquery = req.query.id;
 
         videosModel.findOne({
-            _id: idParams
-        }).remove((err, removed) => res.json(idParams))
+            _id: idquery
+        }).remove((err, removed) => res.json(idquery))
     }
 }
 

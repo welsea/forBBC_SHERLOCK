@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //schema
 var ficsSchema= new mongoose.Schema({
-    title:String,
+    name:String,
     content:String,
     author:String,
     kudos:Number,

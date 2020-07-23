@@ -10,6 +10,11 @@ import Add from '@/components/admin/Add'
 import Search from '@/components/Search'
 import Item from '@/components/Item'
 import addFic from '@/components/admin/AddFic'
+import addImg from '@/components/admin/AddImg'
+import addVid from '@/components/admin/AddVid'
+import addNote from '@/components/admin/AddNote'
+
+
 
 Vue.use(VueRouter)
 
@@ -91,6 +96,27 @@ const router = new VueRouter({
             component:addFic,
             meta:{
                 title:'add_fic'
+            }
+        },
+        {
+            path:'/add_img',
+            component:addImg,
+            meta:{
+                title:'add_img'
+            }
+        },
+        {
+            path:'/add_vid',
+            component:addVid,
+            meta:{
+                title:'add_vid'
+            }
+        },
+        {
+            path:'/add_note',
+            component:addNote,
+            meta:{
+                title:'add_note'
             }
         }
     ]

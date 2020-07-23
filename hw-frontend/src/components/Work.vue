@@ -25,14 +25,14 @@
         <div v-if="select_work==1">
           <el-card id="work_item" v-for="item in fics" :key="item._id">
             <div id="info">
-              <div id="work_name"@click="jumpToItem(item._id)">{{item.name}}</div>
+              <div id="work_name" @click="jumpToItem(item._id)">{{item.name}}</div>
               <div id="work_author">{{item.author}}</div>
               <div id="work_kudos">
                 <i class="icon icon-font icon-aixin1 aixin_fill"></i>
                 <div id="kudos_num">{{item.kudos}}</div>
               </div>
               <div class="work_abstract two_line">
-                {{item.content}}
+                {{item.summary}}
               </div>
             </div>
           </el-card>

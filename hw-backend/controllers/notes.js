@@ -20,27 +20,27 @@ const notesController = {
                 .findOne({
                     _id: newNote._id
                 })
-                .exec((err, notes) => res.json(notes))
+                .exec((err, note) => res.json(note))
         })
     },
     update(req, res) {
-        const idParams = req.params.id;
-        let notes= req.body;
+        const idquery = req.query.id;
+        let note= req.body;
 
         notesModel.updateOne({
-            _id: idParams
+            _id: idquery
         }, {
-            ...notes
+            ...note
         }, (err, updated) => {
             res.json(updated);
         })
     },
     remove(req, res) {
-        const idParams = req.params.id;
+        const idquery = req.query.id;
 
         notesModel.findOne({
-            _id: idParams
-        }).remove((err, removed) => res.json(idParams))
+            _id: idquery
+        }).remove((err, removed) => res.json(idquery))
     }
 }
 

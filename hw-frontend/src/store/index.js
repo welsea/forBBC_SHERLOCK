@@ -39,6 +39,27 @@ export default new Vuex.Store({
 
       state.notes = notes;
     },
+    REMOVE_NOTE(state, payload) {
+      const {
+        noteId
+      } = payload;
+      state.notes = state.notes.filter(
+        note => note._id !== noteId
+      );
+    },
+    UPDATE_NOTE(state, payload) {
+      const {
+        note: newNote
+      } = payload;
+      state.note = newNote;
+      state.notes = state.notes.map(note => {
+        if (note._id === newNote._id) {
+          return newNote;
+        }
+        return note;
+      });
+      state.note = newNote;
+    },
 
     //图
     ALL_IMGS(state, payload) {
@@ -59,6 +80,28 @@ export default new Vuex.Store({
       } = payload;
       state.img = img;
     },
+    REMOVE_IMG(state, payload) {
+      const {
+        imgId
+      } = payload;
+      state.imgs = state.imgs.filter(
+        img => img._id !== imgId
+      );
+    },
+    UPDATE_IMG(state, payload) {
+      const {
+        img: newImg
+      } = payload;
+      state.img = newImg;
+      state.imgs = state.imgs.map(img => {
+        if (img._id === newImg._id) {
+          return newImg;
+        }
+        return img;
+      });
+      state.img = newImg;
+    },
+
 
     //fic
     ALL_FICS(state, payload) {
@@ -79,6 +122,27 @@ export default new Vuex.Store({
       } = payload;
       state.fic = fic;
     },
+    REMOVE_FIC(state, payload) {
+      const {
+        ficId
+      } = payload;
+      state.fics = state.fics.filter(
+        fic => fic._id !== ficId
+      );
+    },
+    UPDATE_FIC(state, payload) {
+      const {
+        fic: newFic
+      } = payload;
+      state.fic = newFic;
+      state.fics = state.fics.map(fic => {
+        if (fic._id === newFic._id) {
+          return newFic;
+        }
+        return fic;
+      });
+      state.fic = newFic;
+    },
 
     //video
     ALL_VIDEOS(state, payload) {
@@ -93,6 +157,28 @@ export default new Vuex.Store({
       } = payload;
       state.videos.push(video);
     },
+    REMOVE_VIDEO(state, payload) {
+      const {
+        videoId
+      } = payload;
+      state.videos = state.videos.filter(
+        video => video._id !== videoId
+      );
+    },
+    UPDATE_VIDEO(state, payload) {
+      const {
+        video: newVideo
+      } = payload;
+      state.video = newVideo;
+      state.videos = state.videos.map(video => {
+        if (video._id === newVideo._id) {
+          return newVideo;
+        }
+        return video;
+      });
+      state.video = newVideo;
+    },
+
 
     //MSG
     ALL_MSGS(state, payload) {
@@ -106,6 +192,27 @@ export default new Vuex.Store({
         msg
       } = payload;
       state.msgs.push(msg);
+    },
+    REMOVE_MSG(state, payload) {
+      const {
+        msgId
+      } = payload;
+      state.msgs = state.msgs.filter(
+        msg => msg._id !== msgId
+      );
+    },
+    UPDATE_MSG(state, payload) {
+      const {
+        msg: newMsg
+      } = payload;
+      state.msg = newMsg;
+      state.msgs = state.msgs.map(msg => {
+        if (msg._id === newMsg._id) {
+          return newMsg;
+        }
+        return msg;
+      });
+      state.msg = newMsg;
     },
   },
   getters: {
@@ -121,7 +228,7 @@ export default new Vuex.Store({
     allFics(state) {
       return state.fics;
     },
-    ficById(state){
+    ficById(state) {
       return state.fic;
     },
     allVideos(state) {
@@ -150,12 +257,56 @@ export default new Vuex.Store({
         note
       } = payload;
 
-      axios.post(`${API_BASE}/notes`, note).then(response => {
+      axios.post(`${API_BASE}/note/add`, note).then(response => {
         console.log('response', response);
         commit('ADD_NOTE', {
           note: response.data,
         })
       })
+    },
+    removeNote({
+      commit
+    }, payload) {
+
+      const {
+        noteId
+      } = payload;
+      axios
+        .delete(`${API_BASE}/note/delete?id=${noteId}`)
+        .then(() => {
+          commit('REMOVE_NOTE', {
+            noteId
+          });
+          Message({
+            message: "删除成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("删除失败！");
+        });
+    },
+    updateNote({
+      commit
+    }, payload) {
+
+      const {
+        note
+      } = payload;
+      axios
+        .put(`${API_BASE}/note/update?id=${note._id}`, note)
+        .then(response => {
+          commit('UPDATE_NOTE', {
+            note: note
+          });
+          Message({
+            message: "更新成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("更新失败！");
+        });
     },
 
     //img
@@ -213,6 +364,67 @@ export default new Vuex.Store({
         });
       })
     },
+    addImg({
+      commit
+    }, payload) {
+      const {
+        img
+      } = payload;
+
+      axios.post(`${API_BASE}/img/add`, img).then(response => {
+        console.log('response', response);
+        commit('ADD_IMG', {
+          img: response.data,
+        })
+      })
+    },
+    removeImg({
+      commit
+    }, payload) {
+
+      const {
+        imgId
+      } = payload;
+      axios
+        .delete(`${API_BASE}/img/delete?id=${imgId}`)
+        .then(() => {
+          // 返回 imgId，用于删除本地对应的商品
+          commit('REMOVE_IMG', {
+            imgId
+          });
+          Message({
+            message: "删除成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("删除失败！");
+        });
+    },
+    updateImg({
+      commit
+    }, payload) {
+
+      const {
+        img
+      } = payload;
+      axios
+        .put(`${API_BASE}/img/update?id=${img._id}`, img)
+        .then(response => {
+          commit('UPDATE_IMG', {
+            img: img
+          });
+          Message({
+            message: "更新成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("更新失败！");
+        });
+    },
+
+
 
     //fic
     allFics({
@@ -269,6 +481,66 @@ export default new Vuex.Store({
         });
       })
     },
+    addFic({
+      commit
+    }, payload) {
+      const {
+        fic
+      } = payload;
+
+      axios.post(`${API_BASE}/fic/add`, fic).then(response => {
+        console.log('response', response);
+        commit('ADD_FIC', {
+          fic: response.data,
+        })
+      })
+    },
+    removeFic({
+      commit
+    }, payload) {
+
+      const {
+        ficId
+      } = payload;
+      axios
+        .delete(`${API_BASE}/fic/delete?id=${ficId}`)
+        .then(() => {
+          // 返回 ficId，用于删除本地对应的商品
+          commit('REMOVE_FIC', {
+            ficId
+          });
+          Message({
+            message: "删除成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("删除失败！");
+        });
+    },
+    updateFic({
+      commit
+    }, payload) {
+
+      const {
+        fic
+      } = payload;
+      axios
+        .put(`${API_BASE}/fic/update?id=${fic._id}`, fic)
+        .then(response => {
+          commit('UPDATE_FIC', {
+            fic: fic
+          });
+          Message({
+            message: "更新成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("更新失败！");
+        });
+    },
+
 
     //video
     allVideos({
@@ -313,6 +585,67 @@ export default new Vuex.Store({
         });
       })
     },
+    addVideo({
+      commit
+    }, payload) {
+      const {
+        video
+      } = payload;
+
+      axios.post(`${API_BASE}/video/add`, video).then(response => {
+        console.log('response', response);
+        commit('ADD_VIDEO', {
+          video: response.data,
+        })
+      })
+    },
+    removeVideo({
+      commit
+    }, payload) {
+
+      const {
+        videoId
+      } = payload;
+      axios
+        .delete(`${API_BASE}/video/delete?id=${videoId}`)
+        .then(() => {
+          // 返回 videoId，用于删除本地对应的商品
+          commit('REMOVE_VIDEO', {
+            videoId
+          });
+          Message({
+            message: "删除成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("删除失败！");
+        });
+    },
+    updateVideo({
+      commit
+    }, payload) {
+
+      const {
+        video
+      } = payload;
+      axios
+        .put(`${API_BASE}/video/update?id=${video._id}`, video)
+        .then(response => {
+          commit('UPDATE_VIDEO', {
+            video: video
+          });
+          Message({
+            message: "更新成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("更新失败！");
+        });
+    },
+
+
 
     //msg
     allMsgs({
@@ -352,12 +685,57 @@ export default new Vuex.Store({
         msg
       } = payload;
 
-      axios.post(`${API_BASE}/msgs`, msg).then(response => {
+      axios.post(`${API_BASE}/msg/add`, msg).then(response => {
         console.log('response', response);
         commit('ADD_MSG', {
           msg: response.data,
         })
       })
+    },
+    removeMsg({
+      commit
+    }, payload) {
+
+      const {
+        msgId
+      } = payload;
+      axios
+        .delete(`${API_BASE}/msg/delete?id=${msgId}`)
+        .then(() => {
+          // 返回 msgId，用于删除本地对应的商品
+          commit('REMOVE_MSG', {
+            msgId
+          });
+          Message({
+            message: "删除成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("删除失败！");
+        });
+    },
+    updateMsg({
+      commit
+    }, payload) {
+
+      const {
+        msg
+      } = payload;
+      axios
+        .put(`${API_BASE}/msg/update?id=${msg._id}`, msg)
+        .then(response => {
+          commit('UPDATE_MSG', {
+            msg: msg
+          });
+          Message({
+            message: "更新成功！",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Message.error("更新失败！");
+        });
     },
   }
 })

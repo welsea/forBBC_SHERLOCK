@@ -8,11 +8,11 @@
         <el-input class="fic_input" v-model="update_img.artist"></el-input>
       </el-form-item>
       <el-form-item label="url">
-        <el-input type="textarea" :rows="4" v-model="update_img.url"></el-input>
-        <img :src="update_img.url"/>
+        <el-input v-model="update_img.url"></el-input>
+        <img style="width:500px" :src="update_img.url"/>
       </el-form-item>
       <el-form-item>
-        <el-button  @click="updateImg">提交</el-button>
+        <el-button  @click="updateImg">更新</el-button>
       </el-form-item>
     </el-form>
 
@@ -23,10 +23,11 @@
         <el-input class="fic_input" v-model="img_form.name"></el-input>
       </el-form-item>
       <el-form-item label="画手">
-        <el-input class="fic_input" v-model="img_form.author"></el-input>
+        <el-input class="fic_input" v-model="img_form.artist"></el-input>
       </el-form-item>
       <el-form-item label="url">
-        <el-input type="textarea" :rows="4" v-model="img_form.url"></el-input>
+        <el-input v-model="img_form.url"></el-input>
+        <img style="width:500px" :src="img_form.url" alt="">
       </el-form-item>
       <el-form-item>
         <el-button  @click="submitImg">提交</el-button>
@@ -74,15 +75,17 @@
         this.$store.dispatch('updateImg', {
           img: this.update_img
         })
+         this.$router.push({
+          path: '/housekeeper'
+        })
       },
       fetchData() {
         if (this.$route.query.id != null) {
           this.update = true;
           this.update_img.name = this.img.name;
-          this.update_img.author = this.img.author;
-          this.update_img.summary = this.img.summary;
-          this.update_img.content = this.img.content;
+          this.update_img.artist = this.img.artist;
           this.update_img.kudos = this.img.kudos;
+          this.update_img.url=this.img.url;
           this.update_img._id = this.img._id;
         }
       }
@@ -93,6 +96,7 @@
           id: this.$route.query.id
         });
         this.fetchData();
+        console.log('fec')
       }
     },
     computed: {

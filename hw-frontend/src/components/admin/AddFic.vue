@@ -84,6 +84,9 @@
       updateFic() {
         this.$store.dispatch('updateFic', {
           fic: this.update_fic
+        });
+         this.$router.push({
+          path: '/housekeeper'
         })
       },
       fetchData() {

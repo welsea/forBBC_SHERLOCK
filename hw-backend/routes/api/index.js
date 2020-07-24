@@ -11,7 +11,7 @@ const videosController = require('../../controllers/videos');
 //notes
 router.get('/notes', notesController.all);
 router.get('/notes/commend',notesController.limitReturn);
-// router.get('/notes/:id', notesController.byId);
+router.get('/note', notesController.byId);
 router.post('/note/add', notesController.create);
 router.put('/note/update', notesController.update);
 router.delete('/note/delete', notesController.remove);
@@ -42,6 +42,7 @@ router.get('/videos', videosController.all);
 router.get('/videos/sort', videosController.sortBy);
 router.get('/videos/commend',videosController.limitReturn);
 router.get('/videos/find',videosController.find);
+router.get('/video', videosController.byId);
 router.post('/video/add', videosController.create);
 router.put('/video/update', videosController.update);
 router.delete('/video/delete', videosController.remove);

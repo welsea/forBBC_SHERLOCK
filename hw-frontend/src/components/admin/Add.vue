@@ -45,18 +45,19 @@
       </el-tab-pane>
       <el-tab-pane label="管理视频" name="video">
         <router-link to="/add_vid">添加视频</router-link>
+        <div style="margin:20px 0">* 推荐的排序是由大至小</div>
         <div class="img_list">
           <el-row :guter="20" style="padding:0 20px">
             <el-col :span="6">名字</el-col>
             <el-col :span="6">up主</el-col>
-            <el-col :span="6">bv号</el-col>
+            <el-col :span="6">推荐排序</el-col>
             <el-col :span="6" style="text-align:center">操作</el-col>
           </el-row>
           <div class="img_item" v-for="vid in videos" :key="vid._id">
             <el-row :gutter="20">
               <el-col :span="6">{{vid.name}}</el-col>
               <el-col :span="6">{{vid.owner}}</el-col>
-              <el-col :span="6">{{vid.bv}}</el-col>
+              <el-col :span="6">{{vid.kudos}}</el-col>
               <el-col :span="6" style="text-align:center">
                 <el-button @click="updateVid(vid._id)" plain>edit</el-button>
                 <el-button @click="deleteVid(vid._id)" type="warning" plain>delete</el-button>

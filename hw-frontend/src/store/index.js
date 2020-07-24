@@ -60,6 +60,12 @@ export default new Vuex.Store({
       });
       state.note = newNote;
     },
+    NOTE_BY_ID(state, payload) {
+      const {
+        note
+      } = payload;
+      state.note = note;
+    },
 
     //图
     ALL_IMGS(state, payload) {
@@ -178,7 +184,12 @@ export default new Vuex.Store({
       });
       state.video = newVideo;
     },
-
+    VIDEO_BY_ID(state, payload) {
+      const {
+        video
+      } = payload;
+      state.video = video;
+    },
 
     //MSG
     ALL_MSGS(state, payload) {
@@ -219,21 +230,31 @@ export default new Vuex.Store({
     allNotes(state) {
       return state.notes;
     },
+    noteById(state) {
+      return state.note;
+    },
+
     allImgs(state) {
       return state.imgs;
     },
     imgById(state) {
       return state.img;
     },
+
     allFics(state) {
       return state.fics;
     },
     ficById(state) {
       return state.fic;
     },
+
     allVideos(state) {
       return state.videos;
     },
+    videoById(state) {
+      return state.video;
+    },
+
     allMsgs(state) {
       return state.msgs;
     },
@@ -244,7 +265,7 @@ export default new Vuex.Store({
       commit
     }) {
       axios.get(`${API_BASE}/notes`).then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         commit('ALL_NOTES', {
           notes: response.data,
         })
@@ -258,10 +279,22 @@ export default new Vuex.Store({
       } = payload;
 
       axios.post(`${API_BASE}/note/add`, note).then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         commit('ADD_NOTE', {
           note: response.data,
         })
+      })
+    },
+    noteById({
+      commit
+    }, payload) {
+      const {
+        id
+      } = payload;
+      axios.get(`${API_BASE}/note?id=${id}`).then(response => {
+        commit('NOTE_BY_ID', {
+          note: response.data
+        });
       })
     },
     removeNote({
@@ -314,7 +347,7 @@ export default new Vuex.Store({
       commit
     }) {
       axios.get(`${API_BASE}/imgs`).then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         commit('ALL_IMGS', {
           imgs: response.data,
         })
@@ -324,7 +357,7 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/imgs/sort`).then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         commit('ALL_IMGS', {
           imgs: response.data,
         })
@@ -334,7 +367,7 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/imgs/commend`).then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         commit('ALL_IMGS', {
           imgs: response.data,
         })
@@ -372,7 +405,6 @@ export default new Vuex.Store({
       } = payload;
 
       axios.post(`${API_BASE}/img/add`, img).then(response => {
-        console.log('response', response);
         commit('ADD_IMG', {
           img: response.data,
         })
@@ -431,7 +463,6 @@ export default new Vuex.Store({
       commit
     }) {
       axios.get(`${API_BASE}/fics`).then(response => {
-        console.log('response', response);
         commit('ALL_FICS', {
           fics: response.data,
         })
@@ -441,7 +472,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/fics/sort`).then(response => {
-        console.log('response', response);
         commit('ALL_FICS', {
           fics: response.data,
         })
@@ -451,7 +481,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/fics/commend`).then(response => {
-        console.log('response', response);
         commit('ALL_FICS', {
           fics: response.data,
         })
@@ -489,7 +518,6 @@ export default new Vuex.Store({
       } = payload;
 
       axios.post(`${API_BASE}/fic/add`, fic).then(response => {
-        console.log('response', response);
         commit('ADD_FIC', {
           fic: response.data,
         })
@@ -547,7 +575,6 @@ export default new Vuex.Store({
       commit
     }) {
       axios.get(`${API_BASE}/videos`).then(response => {
-        console.log('response', response);
         commit('ALL_VIDEOS', {
           videos: response.data,
         })
@@ -557,7 +584,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/videos/sort`).then(response => {
-        console.log('response', response);
         commit('ALL_VIDEOS', {
           videos: response.data,
         })
@@ -567,7 +593,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/videos/commend`).then(response => {
-        console.log('response', response);
         commit('ALL_VIDEOS', {
           videos: response.data,
         })
@@ -585,6 +610,18 @@ export default new Vuex.Store({
         });
       })
     },
+    videoById({
+      commit
+    }, payload) {
+      const {
+        id
+      } = payload;
+      axios.get(`${API_BASE}/video?id=${id}`).then(response => {
+        commit('VIDEO_BY_ID', {
+          video: response.data
+        });
+      })
+    },
     addVideo({
       commit
     }, payload) {
@@ -593,7 +630,6 @@ export default new Vuex.Store({
       } = payload;
 
       axios.post(`${API_BASE}/video/add`, video).then(response => {
-        console.log('response', response);
         commit('ADD_VIDEO', {
           video: response.data,
         })
@@ -652,7 +688,6 @@ export default new Vuex.Store({
       commit
     }) {
       axios.get(`${API_BASE}/msgs`).then(response => {
-        console.log('response', response);
         commit('ALL_MSGS', {
           msgs: response.data,
         })
@@ -662,7 +697,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/msgs/sort`).then(response => {
-        console.log('response', response);
         commit('ALL_MSGS', {
           msgs: response.data,
         })
@@ -672,7 +706,6 @@ export default new Vuex.Store({
       commit
     }, payload) {
       axios.get(`${API_BASE}/msgs/commend`).then(response => {
-        console.log('response', response);
         commit('ALL_MSGS', {
           msgs: response.data,
         })
@@ -686,7 +719,6 @@ export default new Vuex.Store({
       } = payload;
 
       axios.post(`${API_BASE}/msg/add`, msg).then(response => {
-        console.log('response', response);
         commit('ADD_MSG', {
           msg: response.data,
         })

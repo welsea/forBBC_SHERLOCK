@@ -1,28 +1,11 @@
 <template>
   <div>
+    <div id="title1">版务</div>
+    <div id="line"></div>
     <div id="textSection">
-      <div id="title">版务</div>
-      <div id="collapse">
-        <el-collapse v-model="activeName" accordion>
-          <el-collapse-item v-for="(note,no) in notes" :title="note.title" :name="no" :key="no">
-            <div>{{ note.content }}</div>
-          </el-collapse-item>
-        </el-collapse>
-      </div>
-    </div>
-
-    <div>
-      <div>添加</div>
-      <div>
-        title:
-        <el-input v-model="note.title" placeholder="请输入内容"></el-input>
-      </div>
-      <div>
-        content:
-        <el-input v-model="note.content" placeholder="请输入内容"></el-input>
-      </div>
-      <div>
-        <button @click="submitNote">submit</button>
+      <div class="note_item" v-for="item in notes" :key="item._id">
+        <div class="note_title">{{item.title}}</div>
+        <div>{{item.content}}</div>
       </div>
     </div>
   </div>
@@ -33,23 +16,14 @@
     data() {
       return {
         activeName: '',
-        note: {
-          title: '',
-          content: ''
-        },
       }
     },
     methods: {
-      submitNote() {
-        this.$store.dispatch('addNote',{
-          note:this.note
-        })
-      }
+
     },
     created() {
-      if (this.notes.length === 0) {
-        this.$store.dispatch('allNotes')
-      }
+      this.$store.dispatch('allNotes');
+
     },
     computed: {
       notes() {
@@ -60,3 +34,28 @@
   }
 
 </script>
+<style>
+  #title1 {
+    font-size: 25px;
+    text-decoration: solid;
+  }
+
+  #line {
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+  }
+
+  .note_item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .note_title {
+    font-size: 20px;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 10px;
+  }
+
+</style>

@@ -312,7 +312,7 @@
   }
 
   .msg_commend_item {
-    width: 300px;
+    width: 25%;
     padding: 20px;
   }
 
@@ -365,7 +365,7 @@
   }
 
   .video_commend_item {
-    width: 350px;
+    width: 30%;
   }
 
   .swiper-button-next {
@@ -392,7 +392,7 @@
   }
 
   .pic_commend_item {
-    width: 350px;
+    width: 30%;
     background-color: #f6f6f6 !important;
     border: none !important;
   }

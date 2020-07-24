@@ -11,6 +11,11 @@ const notesController = {
             .find({}).limit(5)
             .exec((err,notes)=>res.json(notes));
     },
+    byId(req,res){
+        const id=req.query.id;
+        notesModel.findOne({_id:id})
+            .exec((err, note) => res.json(note))
+    },
     create(req, res) {
         const requestBody = req.body;
         const newNote = new notesModel(requestBody);

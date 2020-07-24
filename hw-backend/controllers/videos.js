@@ -11,6 +11,11 @@ const videosController = {
         videosModel.find({name:{ $regex: '.*' + keyword + '.*' } }).sort({ _id:-1})
             .exec((err, videos) => res.json(videos))
     },
+    byId(req,res){
+        const id=req.query.id;
+        videosModel.findOne({_id:id})
+            .exec((err, video) => res.json(video))
+    },
     sortBy(req,res){
         videosModel
             .find({}).sort({kudos:-1})

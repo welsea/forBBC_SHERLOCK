@@ -14,9 +14,6 @@
               <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search_e"
                 @keyup.enter.native="search">
               </el-input>
-              <div class="logoImg">
-                <img src="../assets/logo.png" alt="">
-              </div>
             </h1>
           </el-col>
         </el-row>
@@ -79,11 +76,11 @@
         this.$router.push({
           path: '/search',
           query: {
-            kw:this.search_e
+            kw: this.search_e
           }
         })
 
-        if(this.$route.path=='/search'){
+        if (this.$route.path == '/search') {
           location.reload()
         }
       }
@@ -95,10 +92,6 @@
 </script>
 
 <style>
-  .el-input__prefix {
-    top: -10px !important;
-  }
-
   .el-menu.el-menu--horizontal {
     border-bottom: none !important;
   }
@@ -109,22 +102,9 @@
 
   .header_h1 {
     float: right;
-    display: flex;
-    width: fit-content;
   }
 
-  .logoImg {
-    width: 90px;
-    margin-left: 20px;
-    position: relative;
-    top: -10px;
 
-  }
-
-  .logoImg>img {
-    width: 100%;
-    display: block;
-  }
 
   .el-menu-item a {
     text-decoration: none;
@@ -151,7 +131,8 @@
     padding: 30px 0 50px 0;
   }
 
-  .main-container{
-    min-height:700px;
+  .main-container {
+    min-height: 700px;
   }
+
 </style>

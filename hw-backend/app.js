@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //链接数据库
-mongoose.connect(`mongodb://localhost:27017/hw`);
+mongoose.connect(`mongodb://sherlocktenyears.com:27017/hw`);
 // 让 mongoose 使用全局 Promise 库
 mongoose.Promise = global.Promise;
 // 取得默认连接

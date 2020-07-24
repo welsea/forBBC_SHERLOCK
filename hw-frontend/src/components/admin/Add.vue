@@ -90,13 +90,13 @@
         <div class="img_list">
           <el-row :guter="20" style="padding:0 20px">
             <el-col :span="6">名字</el-col>
-            <el-col :span="10">标题</el-col>
+            <el-col :span="10">内容</el-col>
             <el-col :span="6" style="text-align:center">操作</el-col>
           </el-row>
           <div class="img_item" v-for="msg in msgs" :key="msg._id">
             <el-row :gutter="20">
               <el-col :span="6">{{msg.name}}</el-col>
-              <el-col :span="10">{{msg.title}}</el-col>
+              <el-col :span="10"><div v-html="msg.content"></div></el-col>
               <el-col :span="6" style="text-align:center">
                 <el-button @click="deleteMsg(msg._id)" type="warning" plain>delete</el-button>
               </el-col>

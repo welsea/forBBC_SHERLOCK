@@ -111,7 +111,7 @@
 -->
       <el-card v-for="item in msgs" :key="item._id" :body-style="{ padding: '0px' }" class="msg_commend_item">
         <div class="msg_line1">
-          <img src="../assets/logo.png" class="cmsg_image">
+          <img :src="item.avatar" class="cmsg_image">
           <div class="msg_line1_2">
             <div>{{item.name}}</div>
             <div id="work_kudos">
@@ -121,7 +121,7 @@
           </div>
         </div>
         <div class="msg_commend_ct">
-          {{item.content}}
+          <div v-html="item.content"></div>
         </div>
       </el-card>
       <!--      
@@ -156,7 +156,7 @@
         //     // prevEl: '.swiper-button-prev'
         //   },
         // }
-        from:''
+        from: ''
       }
     },
     created() {
@@ -213,7 +213,7 @@
           path: '/message'
         })
       },
-      jumpToItem(id,from) {
+      jumpToItem(id, from) {
         if (from == 'fic') {
           this.from = "fics"
         } else {
@@ -304,6 +304,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+
   }
 
   .msg_line1_2 {

@@ -16,7 +16,7 @@
       </div>
       <div class="fic_content" v-html="fic.content"></div>
       <div style="display: flex;justify-content: flex-end;">
-        <div id="work_kudos">
+        <div id="work_kudos" @click="updateKudos">
           <i class="icon icon-font icon-aixin1 aixin_fill"></i>
           <div id="kudos_num">{{fic.kudos}}</div>
         </div>
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div v-else class="img_content">
+    <div v-else class="img_container">
       <div class="img_info">
         <div class="img_1">作品名：</div>
         <div class="img_2">{{img.name}}</div>
@@ -33,7 +33,8 @@
       </div>
       <div class="img_content">
         <img :src="img.url" alt="">
-        <div id="work_kudos">
+        
+        <div id="work_kudos" @click="updateKudos">
           <i class="icon icon-font icon-aixin1 aixin_fill"></i>
           <div id="kudos_num">{{img.kudos}}</div>
         </div>
@@ -48,13 +49,27 @@
       return {
         from: '',
         item: [],
-        id: ''
+        id: '',
+
       }
     },
     methods: {
       fetchData() {
         this.from = this.$route.query.from;
         this.id = this.$route.query.id;
+      },
+      updateKudos() {
+        if (this.from == 'fics') {
+          this.fic.kudos += 1;
+          this.$store.dispatch('updateFic', {
+            fic: this.fic
+          });
+        } else {
+          this.img.kudos += 1;
+          this.$store.dispatch('updateImg', {
+            img: this.img
+          });
+        }
       }
     },
     computed: {
@@ -118,12 +133,17 @@
     height: fit-content;
   }
 
-  .img_content {
+  .img_container {
     width: 90%;
     display: flex;
     align-items: self-start;
   }
 
+  .img_content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
   .img_content>img {
     width: 100%;
   }
